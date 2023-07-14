@@ -16,7 +16,7 @@ class StripeServiceProvider extends ServiceProvider
     {
         $this->app->singleton('stripe', function (){
             // what is required inside there is a key.
-            return new StripeClient('x');
+            return new StripeClient(config('stripe.secret'));
         });
     }
 
