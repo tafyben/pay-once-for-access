@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MemberIndexController;
+use App\Http\Controllers\PaymentIndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\RedirectIfNotMember;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    //dd(app('stripe'));
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -33,7 +35,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware([RedirectIfNotMember::class])->group(function (){
-    Route::get('members', MemberIndexController::class);
+    Route::get('/members', MemberIndexController::class);
 });
+
+Route::get('/payments', PaymentIndexController::class);
 
 require __DIR__.'/auth.php';
