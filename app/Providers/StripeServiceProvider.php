@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Stripe\StripeClient;
 
 class StripeServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,10 @@ class StripeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('stripe', function (){
+            // what is required inside there is a key.
+            return new StripeClient('x');
+        });
     }
 
     /**
