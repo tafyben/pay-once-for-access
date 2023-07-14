@@ -16,18 +16,21 @@ class PaymentIndexController extends Controller
         $this->middleware(['auth']);
     }
 
-    public function __invoke()
-    {
-        dd('abc');
-    }
-
-    public function index()
+    public function __invoke(Request $request)
     {
         $paymentIntent = app('stripe')->paymentIntents->create([
             'amount' => 10000,
             'currency' => 'usd',
-            'setup_future_usage' => 'on_session'
+            'setup_future_usage' => 'on_session',
+            'metadata' => [
+                'user_id' => (string) $request->user()->id
+            ]
         ]);
+    }
+
+    public function index()
+    {
+
     }
 
     /**
