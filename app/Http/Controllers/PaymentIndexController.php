@@ -26,6 +26,8 @@ class PaymentIndexController extends Controller
                 'user_id' => (string) $request->user()->id
             ]
         ]);
+
+        return view('payments.index');
     }
 
     public function index()

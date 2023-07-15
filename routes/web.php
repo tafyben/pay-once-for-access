@@ -22,7 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    //dd(app('stripe'));
+//    dd(app('stripe'));
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
