@@ -41,11 +41,13 @@
                                 if(error){
                                     if(error.type == 'card_error'){
                                         this.cardError = error.message
-                                    }else{
-                                        // submit form
-
                                     }
-                                }
+
+                                }else
+                                    {
+                                        // submit form
+                                        this.$el.submit()
+                                    }
                             }
 
                         }"
