@@ -24,8 +24,17 @@
                                 this.cardElement.mount('#card-element')
                             },
 
-                            confirmCardPayment(){
-                                console.log('make payment')
+                            async confirmCardPayment(){
+                                await this.stripe.confirmCardPayment(
+                                    '{{$paymentIntent->client_secret}}',{
+                                        payment_method: {
+                                            card: this.cardElement,
+                                            billing_details:{
+                                                email: '{{auth()->user()->email}}'
+                                            }
+                                        }
+                                    }
+                                )
                             }
 
                         }"

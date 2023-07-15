@@ -27,7 +27,9 @@ class PaymentIndexController extends Controller
             ]
         ]);
 
-        return view('payments.index');
+        return view('payments.index',[
+            'paymentIntent' => $paymentIntent
+        ]);
     }
 
     public function index()
