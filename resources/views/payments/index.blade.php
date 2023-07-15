@@ -10,11 +10,14 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form
+                        action="/payments/redirect"
+                        method="post"
                         x-on:submit.prevent="confirmCardPayment"
 
                         x-data="{
                             stripe: null,
                             cardElement: null,
+                            cardError:null,
 
                             init(){
                                 this.stripe = Stripe('{{config('stripe.key')}}')
@@ -25,7 +28,7 @@
                             },
 
                             async confirmCardPayment(){
-                                await this.stripe.confirmCardPayment(
+                                const {paymentIntent, error} = await this.stripe.confirmCardPayment(
                                     '{{$paymentIntent->client_secret}}',{
                                         payment_method: {
                                             card: this.cardElement,
@@ -35,13 +38,21 @@
                                         }
                                     }
                                 )
+                                if(error){
+                                    if(error.type == 'card_error'){
+                                        this.cardError = error.message
+                                    }else{
+                                        // submit form
+
+                                    }
+                                }
                             }
 
                         }"
                     >
 
                         <div id="card-element"></div>
-
+                        <div x-show="cardError" x-text="cardError" class="text-red-600 mt-2"></div>
                         <x-primary-button class="mt-3">
                             Make Payment
                         </x-primary-button>
