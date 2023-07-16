@@ -4,6 +4,7 @@ use App\Http\Controllers\MemberIndexController;
 use App\Http\Controllers\PaymentIndexController;
 use App\Http\Controllers\PaymentRedirectController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StripeWebHookController;
 use App\Http\Middleware\RedirectIfNotMember;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
@@ -42,5 +43,7 @@ Route::middleware([RedirectIfNotMember::class])->group(function (){
 
 Route::get('/payments', PaymentIndexController::class);
 Route::post('/payments/redirect', PaymentRedirectController::class)->withoutMiddleware([VerifyCsrfToken::class]);
+Route::get('/webhooks/stripe', StripeWebHookController::class);
+
 
 require __DIR__.'/auth.php';
