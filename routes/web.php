@@ -43,7 +43,7 @@ Route::middleware([RedirectIfNotMember::class])->group(function (){
 
 Route::get('/payments', PaymentIndexController::class);
 Route::post('/payments/redirect', PaymentRedirectController::class)->withoutMiddleware([VerifyCsrfToken::class]);
-Route::get('/webhooks/stripe', StripeWebHookController::class);
+Route::post('/webhooks/stripe', StripeWebHookController::class)->withoutMiddleware([VerifyCsrfToken::class]);
 
 
 require __DIR__.'/auth.php';
