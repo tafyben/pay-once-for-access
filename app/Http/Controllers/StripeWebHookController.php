@@ -14,10 +14,12 @@ class StripeWebHookController extends Controller
         $payload = json_decode($request->getContent(), true);
         $method = 'handle' . Str::studly(str_replace('.', '_', $payload['type']));
 
-        \Log::info($method);
+        if (method_exists($this, $method)){
+            return $this->{$method}($payload);
+        }
     }
 
-    protected function handePaymentIntentSucceeded(){
-        \Log::info('handled');
+    protected function handlePaymentIntentSucceeded($payload){
+        \Log::info($payload);
     }
 }

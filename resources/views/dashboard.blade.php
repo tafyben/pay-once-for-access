@@ -10,7 +10,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     @if(session('status'))
-                        <div class="bg-blue-500 text-white w-full rounded p-5">
+                        <div class="bg-indigo-50 text-green-600 w-full rounded p-5">
                             {{session('status')}}
                         </div>
                     @endif
